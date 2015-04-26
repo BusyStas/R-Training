@@ -4,8 +4,7 @@
 ## changed from 1999-2008?
 setwd("c:/users/stas/OneDrive/Code Projects/git/R-Training/Pollution")
 
-library(plyr)
-library(ggplot2)
+library(plyr) 
 d <- readRDS("summarySCC_PM25.rds")
 cc <- readRDS("Source_Classification_Code.rds")
 coal_combustion <- cc[grepl(cc$Short.Name,pattern='[c]omb+.+[c]oal',ignore.case=TRUE),]
