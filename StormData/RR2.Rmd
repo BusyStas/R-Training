@@ -11,8 +11,18 @@ output: html_document
 
 # Data Processing
 
+Downloading data woud require *R.utils* package:
+```{r, echo=TRUE}
+library(R.utils)
+if (!("stormData.csv.bz2" %in% dir(getwd()))) { 
+    download.file("http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2", destfile = "stormData.csv.bz2")
+  bunzip2('repdata-data-StormData.csv.bz2') # require R.utils
+}
+```
+
 Let's load the data into R using this code:
 ```{r}
+library(R.utils)
 if (!("storm" %in% ls())) { # it will reduce rmd compilation time
   storm <- read.csv('repdata-data-StormData.csv')
 }
@@ -41,17 +51,37 @@ hist(as.numeric(storm[storm$year>1990 & storm$year<2011,]$year))
 d <- storm[storm$year>1990 & storm$year<2011,c("EVTYPE","FATALITIES","INJURIES","PROPDMG","PROPDMGEXP","CROPDMG","CROPDMGEXP","year")]
 # View(d[1:20,])
 # View(table(storm$PROPDMGEXP))
-
+hist(as.numeric(d$year))
 ```
 
-Aggregate data:
+Aggregate data for injuries and fatalities:
 ```{r}
+library(plyr)
 fatalities <- ddply(d,~EVTYPE,summarise,t=sum(FATALITIES))
 injuries <- ddply(d,~EVTYPE,summarise,t=sum(INJURIES))
 fatalities <- tail(fatalities[order(fatalities$t),],10)
 injuries <- tail(injuries[order(injuries$t),],10)
 #View (fatalities)
 ```
+
+The I calculated actual dollar amount for different types of damages. 
+```{r}
+table(d$PROPDMGEXP)
+d$PROPDMGEXP <- sub("[-+?123456789H]","0", d$PROPDMGEXP, ignore.case=TRUE) # do not include "0" for replacement!
+d$PROPDMGEXP <- sub("^$",  0, d$PROPDMGEXP, ignore.case=TRUE)
+d$PROPDMGEXP <- sub("^B$", 9, d$PROPDMGEXP, ignore.case=TRUE)
+d$PROPDMGEXP <- sub("^M$", 6, d$PROPDMGEXP, ignore.case=TRUE)
+d$PROPDMGEXP <- sub("^K$", 3, d$PROPDMGEXP, ignore.case=TRUE)
+
+table(d$CROPDMGEXP)
+d$CROPDMGEXP <- sub("[-+?123456789H]","0", d$CROPDMGEXP, ignore.case=TRUE) # do not include "0" for replacement!
+d$CROPDMGEXP <- sub("^$",  0, d$CROPDMGEXP, ignore.case=TRUE)
+d$CROPDMGEXP <- sub("^B$", 9, d$CROPDMGEXP, ignore.case=TRUE)
+d$CROPDMGEXP <- sub("^M$", 6, d$CROPDMGEXP, ignore.case=TRUE)
+d$CROPDMGEXP <- sub("^K$", 3, d$CROPDMGEXP, ignore.case=TRUE)
+
+```
+
 
 #Introduction
 
