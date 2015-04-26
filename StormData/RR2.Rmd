@@ -36,14 +36,8 @@ if (!("storm" %in% ls())) { # it will reduce rmd compilation time
 } 
 storm$year <- format(as.Date(storm$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y")
 # View(table(storm$year))
-hist(as.numeric(storm[storm$year>1990 & storm$year<2011,]$year),
+hist(as.numeric(storm$year),
   xlab="Year", ylab="Number of events", main="Amount of data available by years")
-```
-
-Then I added column *year* for analysing which years we have enough data for:
-```{r} 
-#storm$year <- format(as.Date(storm$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y")
-# View(table(storm$year))
 ```
 
 Then we prepare a subset of data with only those variables that we will use for the study:
@@ -69,14 +63,12 @@ injuries <- tail(injuries[order(injuries$t),],10)
 ### Most harmful to population health
 
 You can see the types of events that appeared to be most harmful to population health in terms of fatalities:
-```{r, echo=TRUE}
-# library(knitr)
+```{r, echo=TRUE} 
   kable(fatalities, format="markdown") 
 ```
 
 You can see the types of events that appeared to be most harmful to population health in terms of injuries:
-```{r, echo=TRUE}
-# library(knitr) 
+```{r, echo=TRUE} 
   kable(injuries, format="markdown")
 ```
 
@@ -116,16 +108,15 @@ You can see the types of events that caused most damange to property:
 ```{r, echo=TRUE} 
   kable(dam1, format="markdown") 
 ```
-
-You can see the types of events that caused most agricultural damage to economics:
-```{r, echo=TRUE} 
-  kable(dam2, format="markdown")
-```
  
 
 
 # Results
 
-There should be a section titled Results in which your results are presented.
- 
-        
+Events that cause most fatalities are: **EXCESSIVE HEAT**, TORNADO and FLASH FLOOD.  
+The most causing injuries event is: **TORNADO**.       
+Events that cause most economical damage are: **FLOOD**, HURRICANE/TYPHOON and STORM SURGE.
+
+
+
+
