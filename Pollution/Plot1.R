@@ -6,11 +6,11 @@
 ## Upload a PNG file containing your plot addressing this question.
 
 d <- readRDS("summarySCC_PM25.rds")
-View(d[1:20,])
+## View(d[1:20,])
 
 library(plyr)
-y <- ddply(d,~year,summarise,t=format(sum(Emissions),scientific=FALSE))
-#y <- format(y, scientific=FALSE)
+options(scipen=999) ## disabling scientific notation in R
+y <- ddply(d,~year,summarise,t=sum(Emissions))
 
 png(filename="Plot1.png", width=480, height=480, units="px")
 plot(y, type="l", xlab="Year", 
