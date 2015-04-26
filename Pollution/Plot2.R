@@ -6,7 +6,6 @@
 setwd("c:/users/stas/OneDrive/Code Projects/git/R-Training/Pollution")
 
 d <- readRDS("summarySCC_PM25.rds")
-#cc <- readRDS("Source_Classification_Code.rds")
 ## View(d[1:20,])
 ## View(cc[1:20,])
 
