@@ -7,12 +7,13 @@ setwd("c:/users/stas/OneDrive/Code Projects/git/R-Training/Pollution")
 
 d <- readRDS("summarySCC_PM25.rds")
 #cc <- readRDS("Source_Classification_Code.rds")
-View(d[1:20,])
-View(cc[1:20,])
+## View(d[1:20,])
+## View(cc[1:20,])
 
 library(plyr)
+options(scipen=999) ## disabling scientific notation in R
 baltimor <- d[d$fips=="24510",]
-y <- ddply(baltimor,~year,summarise,t=format(sum(Emissions),scientific=FALSE))
+y <- ddply(baltimor,~year,summarise,t=sum(Emissions))
 
 png(filename="Plot2.png", width=480, height=480, units="px")
 plot(y, type="l", xlab="Year", 
