@@ -1,6 +1,6 @@
 ---
-title: "My MD"
-author: "Stas"
+title: "Impact of Severe Weather Events on Public Health and Economy in the US"
+author: "Stas Prihodco"
 date: "Wednesday, April 15, 2015"
 output: html_document
 ---
@@ -11,8 +11,47 @@ output: html_document
 
 # Data Processing
 
-There should be a section titled Data Processing which describes (in words and code) how the data were loaded into R and processed for analysis. In particular, your analysis must start from the raw CSV file containing the data. You cannot do any preprocessing outside the document. If preprocessing is time-consuming you may consider using the cache = TRUE option for certain code chunks.
+Let's load the data into R using this code:
+```{r}
+if (!("storm" %in% ls())) { # it will reduce rmd compilation time
+  storm <- read.csv('repdata-data-StormData.csv')
+}
+# View(table(storm$STATE))
+# View(storm[1:20,])
+storm$year <- format(as.Date(storm$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y")
+# View(table(storm$year))
 
+hist(as.numeric(storm[storm$year>1990 & storm$year<2011,]$year))
+```
+
+Then I added column *year* for analysing which years we have enough data for:
+```{r}
+if (!("storm" %in% ls())) { # it will reduce rmd compilation time
+  storm <- read.csv('repdata-data-StormData.csv')
+}
+# View(table(storm$STATE))
+# View(storm[1:20,])
+storm$year <- format(as.Date(storm$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y")
+# View(table(storm$year))
+
+hist(as.numeric(storm[storm$year>1990 & storm$year<2011,]$year))
+```
+
+```{r}
+d <- storm[storm$year>1990 & storm$year<2011,c("EVTYPE","FATALITIES","INJURIES","PROPDMG","PROPDMGEXP","CROPDMG","CROPDMGEXP","year")]
+# View(d[1:20,])
+# View(table(storm$PROPDMGEXP))
+
+```
+
+Aggregate data:
+```{r}
+fatalities <- ddply(d,~EVTYPE,summarise,t=sum(FATALITIES))
+injuries <- ddply(d,~EVTYPE,summarise,t=sum(INJURIES))
+fatalities <- tail(fatalities[order(fatalities$t),],10)
+injuries <- tail(injuries[order(injuries$t),],10)
+#View (fatalities)
+```
 
 #Introduction
 
@@ -51,16 +90,9 @@ Consider writing your report as if it were to be read by a government or municip
 
    
 
-```{r}
-if (!("storm" %in% ls())) { # it will reduce rmd compilation time
-  storm <- read.csv('repdata-data-StormData.csv')
-}
-# View(table(storm$STATE))
-# View(storm[1:20,])
-```
 
 # Results
 
 There should be a section titled Results in which your results are presented.
-
-
+ 
+        
