@@ -11,10 +11,15 @@ Storms and other severe weather events can cause both public health and economic
 
 # Data Processing
 
+```{r libraries,message=F,cache=F}
+library(R.utils) 
+library(knitr)
+library(plyr)
+```
+
 For this study I use [National Weather Service Storm Data,https://a.a.a].
 Downloading data (**stormData.csv.bz2**) woud require *R.utils* package:
 ```{r, echo=TRUE}
-library(R.utils)
 if (!("repdata-data-StormData.csv.bz2" %in% dir(getwd()))) { 
  a<-1 #  download.file("http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2", destfile = "repdata-data-StormData.csv.bz2")
 }
@@ -25,21 +30,12 @@ if (!("repdata-data-StormData.csv" %in% dir(getwd()))) {
 
 Let's load the data into R. Then I added column *year* for analysing which years we have enough data for.
 ```{r}
-library(R.utils)
-library(knitr)
-
 if (!("storm" %in% ls())) { # it will reduce rmd compilation time
   storm <- read.csv("d.csv") 
   #storm <- read.csv("repdata-data-StormData.csv")
 } 
 storm$year <- format(as.Date(storm$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y")
 # View(table(storm$year))
-#print(table(storm$year))
-
-
-  kable(table(storm$year), format="markdown")
-
-
 hist(as.numeric(storm[storm$year>1990 & storm$year<2011,]$year),
   xlab="Year", ylab="Number of events", main="Amount of data available by years")
 ```
@@ -52,10 +48,9 @@ Then I added column *year* for analysing which years we have enough data for:
 
 Then we prepare a subset of data with only those variables that we will use for the study:
 ```{r}
-d <- storm[storm$year>1990 & storm$year<2011,c("BGN_DATE", "EVTYPE","FATALITIES","INJURIES","PROPDMG","PROPDMGEXP","CROPDMG","CROPDMGEXP","year")]
-# View(d[1:20,])
-# View(table(storm$PROPDMGEXP))
-hist(as.numeric(d$year))
+d <- storm[storm$year>1990 & storm$year<2011,c("BGN_DATE", "EVTYPE","FATALITIES","INJURIES","PROPDMG","PROPDMGEXP","CROPDMG","CROPDMGEXP","year")] 
+hist(as.numeric(d$year),
+  xlab="Year", ylab="Number of events", main="Years with enough data")
 
 #   write.table(d, "d.csv", sep=",", row.name=TRUE)
 #   d <- read.csv("d.csv") 
@@ -64,7 +59,6 @@ hist(as.numeric(d$year))
 
 Aggregate data for injuries and fatalities:
 ```{r}
-library(plyr)
 fatalities <- ddply(d,~EVTYPE,summarise,t=sum(FATALITIES))
 injuries <- ddply(d,~EVTYPE,summarise,t=sum(INJURIES))
 fatalities <- tail(fatalities[order(fatalities$t),],10)
@@ -74,16 +68,21 @@ injuries <- tail(injuries[order(injuries$t),],10)
 
 ### Most harmful to population health
 
-You can see the types of events that appeared to be most harmful to population health:
+You can see the types of events that appeared to be most harmful to population health in terms of fatalities:
 ```{r, echo=TRUE}
 # library(knitr)
-  kable(fatalities, format="markdown")
+  kable(fatalities, format="markdown") 
 ```
 
-### types of events have the greatest economic consequences
+You can see the types of events that appeared to be most harmful to population health in terms of injuries:
+```{r, echo=TRUE}
+# library(knitr) 
+  kable(injuries, format="markdown")
+```
 
+### Most damaging events
 
-The I calculated actual dollar amount for different types of damages. For this purpose I prepare manage multipliers: 
+Now let's figure out types of events have the greatest economic consequences. The I calculated actual dollar amount for different types of damages. For this purpose I prepare manage multipliers: 
 ```{r}
 table(d$PROPDMGEXP)
 d$PROPDMGEXP <- sub("[-+?123456789H]","0", d$PROPDMGEXP, ignore.case=TRUE) # do not include "0" for replacement!
@@ -113,20 +112,16 @@ dam2 <- tail(dam2[order(dam2$t),],10) # crop
 
 ```
 
+You can see the types of events that caused most damange to property:
+```{r, echo=TRUE} 
+  kable(dam1, format="markdown") 
+```
+
+You can see the types of events that caused most agricultural damage to economics:
+```{r, echo=TRUE} 
+  kable(dam2, format="markdown")
+```
  
-
-#Data
-
-[https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2](Storm Data [47Mb])
-There is also some documentation of the database available. Here you will find how some of the variables are constructed/defined.
-
-National Weather Service Storm Data Documentation
-
-National Climatic Data Center Storm Events FAQ
-
-The events in the database start in the year 1950 and end in November 2011. In the earlier years of the database there are generally fewer events recorded, most likely due to a lack of good records. More recent years should be considered more complete.
- 
-   
 
 
 # Results
