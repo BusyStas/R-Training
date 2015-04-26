@@ -7,51 +7,59 @@ output: html_document
 
 # Synopsis 
   
-  Synopsis: Immediately after the title, there should be a synopsis which describes and summarizes your analysis in at most 10 complete sentences.
+Storms and other severe weather events can cause both public health and economic problems for communities and municipalities. Many severe events can result in fatalities, injuries, and property damage, and preventing such outcomes to the extent possible is a key concern. This study aims to identify which types of events are most harmful with respect to population health and which types of events have the greatest economic consequences.
 
 # Data Processing
 
-Downloading data woud require *R.utils* package:
+For this study I use [National Weather Service Storm Data,https://a.a.a].
+Downloading data (**stormData.csv.bz2**) woud require *R.utils* package:
 ```{r, echo=TRUE}
 library(R.utils)
-if (!("stormData.csv.bz2" %in% dir(getwd()))) { 
-    download.file("http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2", destfile = "stormData.csv.bz2")
-  bunzip2('repdata-data-StormData.csv.bz2') # require R.utils
+if (!("repdata-data-StormData.csv.bz2" %in% dir(getwd()))) { 
+ a<-1 #  download.file("http://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2", destfile = "repdata-data-StormData.csv.bz2")
+}
+if (!("repdata-data-StormData.csv" %in% dir(getwd()))) { 
+ a<-1 # print 66 # bunzip2('repdata-data-StormData.csv.bz2') # require R.utils
 }
 ```
 
-Let's load the data into R using this code:
+Let's load the data into R. Then I added column *year* for analysing which years we have enough data for.
 ```{r}
 library(R.utils)
+library(knitr)
+
 if (!("storm" %in% ls())) { # it will reduce rmd compilation time
-  storm <- read.csv('repdata-data-StormData.csv')
-}
-# View(table(storm$STATE))
-# View(storm[1:20,])
+  storm <- read.csv("d.csv") 
+  #storm <- read.csv("repdata-data-StormData.csv")
+} 
 storm$year <- format(as.Date(storm$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y")
 # View(table(storm$year))
+#print(table(storm$year))
 
-hist(as.numeric(storm[storm$year>1990 & storm$year<2011,]$year))
+
+  kable(table(storm$year), format="markdown")
+
+
+hist(as.numeric(storm[storm$year>1990 & storm$year<2011,]$year),
+  xlab="Year", ylab="Number of events", main="Amount of data available by years")
 ```
 
 Then I added column *year* for analysing which years we have enough data for:
-```{r}
-if (!("storm" %in% ls())) { # it will reduce rmd compilation time
-  storm <- read.csv('repdata-data-StormData.csv')
-}
-# View(table(storm$STATE))
-# View(storm[1:20,])
-storm$year <- format(as.Date(storm$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y")
+```{r} 
+#storm$year <- format(as.Date(storm$BGN_DATE, format = "%m/%d/%Y %H:%M:%S"), "%Y")
 # View(table(storm$year))
-
-hist(as.numeric(storm[storm$year>1990 & storm$year<2011,]$year))
 ```
 
+Then we prepare a subset of data with only those variables that we will use for the study:
 ```{r}
-d <- storm[storm$year>1990 & storm$year<2011,c("EVTYPE","FATALITIES","INJURIES","PROPDMG","PROPDMGEXP","CROPDMG","CROPDMGEXP","year")]
+d <- storm[storm$year>1990 & storm$year<2011,c("BGN_DATE", "EVTYPE","FATALITIES","INJURIES","PROPDMG","PROPDMGEXP","CROPDMG","CROPDMGEXP","year")]
 # View(d[1:20,])
 # View(table(storm$PROPDMGEXP))
 hist(as.numeric(d$year))
+
+#   write.table(d, "d.csv", sep=",", row.name=TRUE)
+#   d <- read.csv("d.csv") 
+#   View(head(d))
 ```
 
 Aggregate data for injuries and fatalities:
@@ -64,7 +72,18 @@ injuries <- tail(injuries[order(injuries$t),],10)
 #View (fatalities)
 ```
 
-The I calculated actual dollar amount for different types of damages. 
+### Most harmful to population health
+
+You can see the types of events that appeared to be most harmful to population health:
+```{r, echo=TRUE}
+# library(knitr)
+  kable(fatalities, format="markdown")
+```
+
+### types of events have the greatest economic consequences
+
+
+The I calculated actual dollar amount for different types of damages. For this purpose I prepare manage multipliers: 
 ```{r}
 table(d$PROPDMGEXP)
 d$PROPDMGEXP <- sub("[-+?123456789H]","0", d$PROPDMGEXP, ignore.case=TRUE) # do not include "0" for replacement!
@@ -72,6 +91,9 @@ d$PROPDMGEXP <- sub("^$",  0, d$PROPDMGEXP, ignore.case=TRUE)
 d$PROPDMGEXP <- sub("^B$", 9, d$PROPDMGEXP, ignore.case=TRUE)
 d$PROPDMGEXP <- sub("^M$", 6, d$PROPDMGEXP, ignore.case=TRUE)
 d$PROPDMGEXP <- sub("^K$", 3, d$PROPDMGEXP, ignore.case=TRUE)
+#sum(d$PROPDMG)
+#sum(d$PROPDMG * 10 ^ as.numeric(d$PROPDMGEXP))
+d$PROPDMG <- d$PROPDMG * 10 ^ as.numeric(d$PROPDMGEXP)
 
 table(d$CROPDMGEXP)
 d$CROPDMGEXP <- sub("[-+?123456789H]","0", d$CROPDMGEXP, ignore.case=TRUE) # do not include "0" for replacement!
@@ -79,21 +101,19 @@ d$CROPDMGEXP <- sub("^$",  0, d$CROPDMGEXP, ignore.case=TRUE)
 d$CROPDMGEXP <- sub("^B$", 9, d$CROPDMGEXP, ignore.case=TRUE)
 d$CROPDMGEXP <- sub("^M$", 6, d$CROPDMGEXP, ignore.case=TRUE)
 d$CROPDMGEXP <- sub("^K$", 3, d$CROPDMGEXP, ignore.case=TRUE)
+d$CROPDMG <- d$CROPDMG * 10 ^ as.numeric(d$CROPDMGEXP)
+
+dam1 <- ddply(d,~EVTYPE,summarise,t=sum(PROPDMG)) ## Property damage
+dam2 <- ddply(d,~EVTYPE,summarise,t=sum(CROPDMG)) ## Agricultural (crop) damage
+
+dam1 <- tail(dam1[order(dam1$t),],10) # prop
+dam2 <- tail(dam2[order(dam2$t),],10) # crop
+#View (dam1)
+
 
 ```
 
-
-#Introduction
-
-Storms and other severe weather events can cause both public health and economic 
-problems for communities and municipalities. Many severe events can result 
-in fatalities, injuries, and property damage, and preventing such outcomes 
-to the extent possible is a key concern.
-This project involves exploring the U.S. National Oceanic and Atmospheric 
-Administration's (NOAA) storm database. This database tracks characteristics 
-of major storms and weather events in the United States, including when and 
-where they occur, as well as estimates of any fatalities, injuries, and property 
-damage.
+ 
 
 #Data
 
@@ -105,19 +125,7 @@ National Weather Service Storm Data Documentation
 National Climatic Data Center Storm Events FAQ
 
 The events in the database start in the year 1950 and end in November 2011. In the earlier years of the database there are generally fewer events recorded, most likely due to a lack of good records. More recent years should be considered more complete.
-
-
-# Questions
-
-Your data analysis must address the following questions:
-
-Across the United States, which types of events (as indicated in the EVTYPE variable) are most harmful with respect to population health?
-
-Across the United States, which types of events have the greatest economic consequences?
-
-Consider writing your report as if it were to be read by a government or municipal manager who might be responsible for preparing for severe weather events and will need to prioritize resources for different types of events. However, there is no need to make any specific recommendations in your report.
-
-
+ 
    
 
 
