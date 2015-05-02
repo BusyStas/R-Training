@@ -1,3 +1,4 @@
+## http://www.bioinformatics.org/sms/rev_comp.html
 ReverseCompliment <- function(x){
   a <- ""
   for (i in 1:nchar(x)) {
