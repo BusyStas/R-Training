@@ -278,6 +278,69 @@ dam2 &lt;- tail(dam2[order(dam2$t),],10) # crop
 <p>You can see the types of events that caused most damange to property:</p>
 <pre class="r"><code>  kable(dam1, format=&quot;markdown&quot;) </code></pre>
 <p>| |EVTYPE | t| |:—|:—————–|————:| |359 |HIGH WIND | 5228095295| |972 |WINTER STORM | 6670340251| |848 |TROPICAL STORM | 7565148350| |402 |HURRICANE | 11857819010| |153 |FLASH FLOOD | 14756767367| |244 |HAIL | 15280937498| |834 |TORNADO | 19078346839| |670 |STORM SURGE | 43323536000| |411 |HURRICANE/TYPHOON | 69305840000| |170 |FLOOD | 136940032357|</p>
+<p>You can see the types of events that caused most damange to crops:</p>
+<pre class="r"><code>  kable(dam2, format=&quot;markdown&quot;) </code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="left">EVTYPE</th>
+<th align="right">t</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">212</td>
+<td align="left">FROST/FREEZE</td>
+<td align="right">1080676000</td>
+</tr>
+<tr class="even">
+<td align="left">140</td>
+<td align="left">EXTREME COLD</td>
+<td align="right">1292973000</td>
+</tr>
+<tr class="odd">
+<td align="left">153</td>
+<td align="left">FLASH FLOOD</td>
+<td align="right">1332870100</td>
+</tr>
+<tr class="even">
+<td align="left">411</td>
+<td align="left">HURRICANE/TYPHOON</td>
+<td align="right">2607872800</td>
+</tr>
+<tr class="odd">
+<td align="left">402</td>
+<td align="left">HURRICANE</td>
+<td align="right">2731410000</td>
+</tr>
+<tr class="even">
+<td align="left">244</td>
+<td align="left">HAIL</td>
+<td align="right">2943620473</td>
+</tr>
+<tr class="odd">
+<td align="left">427</td>
+<td align="left">ICE STORM</td>
+<td align="right">5022033500</td>
+</tr>
+<tr class="even">
+<td align="left">590</td>
+<td align="left">RIVER FLOOD</td>
+<td align="right">5029459000</td>
+</tr>
+<tr class="odd">
+<td align="left">170</td>
+<td align="left">FLOOD</td>
+<td align="right">5507096450</td>
+</tr>
+<tr class="even">
+<td align="left">95</td>
+<td align="left">DROUGHT</td>
+<td align="right">13941292000</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="results" class="section level1">

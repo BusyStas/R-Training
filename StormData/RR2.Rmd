@@ -109,6 +109,10 @@ You can see the types of events that caused most damange to property:
   kable(dam1, format="markdown") 
 ```
  
+You can see the types of events that caused most damange to crops:
+```{r, echo=TRUE} 
+  kable(dam2, format="markdown") 
+```
 
 
 # Results
