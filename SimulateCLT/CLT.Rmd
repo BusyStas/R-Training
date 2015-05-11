@@ -32,14 +32,22 @@ As a motivating example, compare the distribution of 1000 random uniforms and th
 #hist(runif(1000))
 
 v <- runif(1000)
+v_mean <- mean(v, na.rm=T)
+v_sd <- sd(v)
+v_var <- var(v,v) ## would be same as v_sd^2
   
-ggplot() + aes(v)+ geom_histogram(binwidth=0.05, colour="black", fill="white") + geom_vline(aes(xintercept=mean(v, na.rm=T)), color="red", linetype="dashed", size=1)
+ggplot() + aes(v)+ geom_histogram(binwidth=0.05, colour="black", fill="white") + geom_vline(aes(xintercept=v_mean), color="red", linetype="dashed", size=1)
+
+
+
 
 
 mns = NULL
 for (i in 1 : 1000) mns = c(mns, mean(runif(40)))
 
-ggplot() + aes(mns)+ geom_histogram(binwidth=0.01, colour="black", fill="white") + geom_vline(aes(xintercept=mean(mns, na.rm=T)), color="red", linetype="dashed", size=1)
+ggplot() + aes(mns)+ geom_histogram(aes(y=..density..), binwidth=0.01, colour="black", fill="white") + geom_vline(aes(xintercept=mean(mns, na.rm=T)), color="red", linetype="dashed", size=1) +  geom_density(alpha=.2)
+
+ggplot() + aes(mns)+ geom_histogram( binwidth=0.01, colour="black", fill="white") + geom_vline(aes(xintercept=mean(mns, na.rm=T)), color="red", linetype="dashed", size=1)  
 
 #hist(mns)
 ```
