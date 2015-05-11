@@ -5,7 +5,11 @@ date: "Sunday, May 10, 2015"
 output: html_document
 ---
 
+```{r}
+library(ggplot2)
+```
 
+# Overview
 
  
 
@@ -20,18 +24,24 @@ Illustrate via simulation and associated explanatory text the properties of the 
 
 In point 3, focus on the difference between the distribution of a large collection of random exponentials and the distribution of a large collection of averages of 40 exponentials. 
 
-As a motivating example, compare the distribution of 1000 random uniforms
-```{r}
-par(mfrow=c(1,2))
-hist(runif(1000))
-```
+As a motivating example, compare the distribution of 1000 random uniforms and the distribution of 1000 averages of 40 random uniforms
 
-and the distribution of 1000 averages of 40 random uniforms
+```{r} 
 
-```{r}
+#par(mfrow=c(1,2))
+#hist(runif(1000))
+
+v <- runif(1000)
+  
+ggplot() + aes(v)+ geom_histogram(binwidth=0.05, colour="black", fill="white") + geom_vline(aes(xintercept=mean(v, na.rm=T)), color="red", linetype="dashed", size=1)
+
+
 mns = NULL
 for (i in 1 : 1000) mns = c(mns, mean(runif(40)))
-hist(mns)
+
+ggplot() + aes(mns)+ geom_histogram(binwidth=0.01, colour="black", fill="white") + geom_vline(aes(xintercept=mean(mns, na.rm=T)), color="red", linetype="dashed", size=1)
+
+#hist(mns)
 ```
  
 This distribution looks far more Gaussian than the original uniform distribution!
