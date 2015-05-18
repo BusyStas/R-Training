@@ -2,7 +2,7 @@
 title: "Simulate CLT"
 author: "Stanislav Prikhodko"
 date: "Sunday, May 10, 2015"
-output: pdf_document
+output: html_document
 ---
 
 ```{r, echo=FALSE,warning=FALSE}
@@ -66,34 +66,36 @@ In this project I will investigate the exponential distribution and compare it w
 
 ## Project  
 
-The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. I will use lambda = 0.2 for all of the simulations. In this study I will investigate the distribution of averages of 40 exponentials. 
+The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. I will use lambda = 0.2 for all of the simulations. In this study I will investigate the distribution of averages of 40 exponentials.
 
-#
-1. Show the sample mean and compare it to the theoretical mean of the distribution.
+### Theoretical mean of the distribution
+
+Creating 1000 values from the exponential distribution
+```{r}
+exp <- rexp(n=1000, rate = 0.2)
+exp_mean <- mean(exp)
+```
+
+The sample mean is ```r exp_mean```. Let's plot a histogram to show the sample mean and compare it to the theoretical mean of the distribution.
+```{r}
+ggplot() + aes(exp)+ 
+  geom_histogram( binwidth=1, colour="black", fill="white") + 
+  geom_vline(aes(xintercept=exp_mean), color="red", linetype="dashed", size=1) 
+
+```
 
 #
 2. Show how variable the sample is (via variance) and compare it to the theoretical variance of the distribution.
+```{r}
+exp[sample(1:5, 5, replace=FALSE)]
+```
 
 #
 3. Show that the distribution is approximately normal.
 
 
 ```{r, warning=FALSE} 
-
-#par(mfrow=c(1,2))
-#hist(runif(1000))
-
-v <- runif(1000)
-v_mean <- mean(v, na.rm=T)
-v_sd <- sd(v)
-v_var <- var(v,v) ## would be same as v_sd^2
-  
-ggplot() + aes(v)+ geom_histogram(binwidth=0.05, colour="black", fill="white") + geom_vline(aes(xintercept=v_mean), color="red", linetype="dashed", size=1)
-
-
-
-
-
+ 
 mns = NULL
 for (i in 1 : 1000) mns = c(mns, mean(runif(40)))
 
