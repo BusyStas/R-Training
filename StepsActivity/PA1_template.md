@@ -148,7 +148,7 @@ The I use the following *panel plot* in order to compare the average number of s
 m$wd <- 'Weekday'
 m$wd <- ifelse((weekdays(m$date)=='Saturday'|weekdays(m$date)=='Sunday'), 'weekend', m$wd)
 steps_by_wd <- ddply(m, .(wd, interval), summarize, avg_steps=mean(steps, na.rm=T))
-ggplot(steps_by_wd, aes(x=interval, y=avg_steps)) + geom_line(color="blue") + facet_wrap(~ wd, nrow=2, ncol=1) + labs(x="5-minute Interval", y="Number of steps") + theme_bw() + ggtitle("Compare Weekdays vs. Weekends")
+ggplot(steps_by_wd, aes(x=interval, y=avg_steps)) + geom_line(color="blue") + facet_wrap(~ wd, nrow=2, ncol=1) + labs(x="5-minute Interval", y="Number of steps") + theme_bw() + ggtitle("Panel plot to compare weekdays vs. weekends")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-11-1.png) 
