@@ -1,0 +1,85 @@
+---
+title: "Practical Machine Learning: Writeup"
+output: 
+  html_document:
+    keep_md: true
+---
+
+I will use the package **Caret** for predictive machine learning study.
+```{r libraries,warning=FALSE,cache=FALSE}
+library(caret)
+library(corrplot)
+library(kernlab)
+library(randomForest)
+```
+
+## Loading and cleaning data
+
+The following data will be used for analysis:
+```{r,cache=TRUE}
+if (!file.exists("pml-training.csv")) {
+  urlTraining <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
+  urlTesting <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
+  
+  download.file(urlTraining , destfile = "pml-training.csv")
+  download.file(urlTesting , destfile = "pml-testing.csv")
+}
+```
+
+Loading raw data from the file:
+```{r,echo=TRUE}
+rawTraining <- read.csv("pml-training.csv", na.strings= c("NA",""," "))
+rawTesting <- read.csv("pml-testing.csv", na.strings= c("NA",""," "))
+```
+
+Removing columns with missing data in it, or if it is not numeric:
+```{r,echo=TRUE}
+Training <- rawTraining[, colSums(is.na(rawTraining)) == 0] 
+Testing <- rawTesting[, colSums(is.na(rawTraining)) == 0]
+NumCols <- sapply(Training, is.numeric)
+NumCols["classe"] <- TRUE
+NumCols["raw_timestamp_part_1"] <- FALSE
+NumCols["raw_timestamp_part_2"] <- FALSE
+NumCols["X"] <- FALSE
+NumCols["num_window"] <- FALSE
+Training <- Training[, NumCols] 
+Testing <- Testing[, NumCols]
+# View(Training[1:20,]) 
+```
+
+## Slicing Data
+
+I will use 80% of data as a training sample and the rest of data will be used for cross valudation:
+```{r,echo=TRUE} 
+inTrain <- createDataPartition(y = Training$classe, p = 0.8, list = FALSE)
+trainingSet <- Training[inTrain, ]
+crossVal <- Training[-inTrain, ]
+correlMatrix <- cor(trainingSet[, -length(trainingSet)])
+corrplot(correlMatrix, order="FPC", method="ellipse", type="upper", tl.col="black", tl.cex=0.5)
+```
+
+Then I run *random forest method* to create a model and build the confusion matrix for it: 
+```{r,echo=TRUE}
+model <- randomForest(classe ~ ., data = trainingSet)
+predictCrossVal <- predict(model, crossVal)
+confusionMatrix(crossVal$classe, predictCrossVal)
+```
+
+Then, predict the classes of the test set:
+```{r, echo=FALSE}
+predictTest <- predict(model, Testing)
+print(predictTest)
+```
+
+The following code will run the model and save results into the file:
+```{r,echo=FALSE}
+answers = rep("A", 20)
+pml_write_files = function(x){
+  n = length(x)
+  for(i in 1:n){
+    filename = paste0("problem_id_",i,".txt")
+    write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
+  }
+}
+pml_write_files(answers)
+```
