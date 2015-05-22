@@ -5,18 +5,23 @@ date: "Friday, May 22, 2015"
 output: pdf_document
 ---
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+## Loading data
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+Load the ToothGrowth data and perform some basic exploratory data analyses 
+## basic summary of the data.
 
-```{r}
-summary(cars)
-```
+## Confidence intervals and Hypothesis testing
 
-You can also embed plots, for example:
+Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (Only use the techniques from class, even if there's other approaches worth considering)
 
-```{r, echo=FALSE}
-plot(cars)
-```
+## Conclusions 
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+State your conclusions and the assumptions needed for your conclusions. 
+Were the results of the tests and/or intervals interpreted in the context of the problem correctly?
+
+## exploratory data analysis
+Some criteria that you will be evaluated on
+Did you  perform an exploratory data analysis of at least a single plot or table highlighting basic features of the data?
+Did the student perform some relevant confidence intervals and/or tests?
+ 
+Did the student describe the assumptions needed for their conclusions?
