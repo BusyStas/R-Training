@@ -10,6 +10,7 @@ output: pdf_document
 Load the ToothGrowth data and perform some basic exploratory data analyses 
 ```{r}
 library(datasets)
+library(ggplot2)
 data(ToothGrowth) 
 ```
  
@@ -30,11 +31,19 @@ In this studdy I will analyze the varriables *supp* and *dose* that have followi
 table(ToothGrowth$supp, ToothGrowth$dose)
 ```
  
-
 ## Exploratory data analysis
 Some criteria that you will be evaluated on
 Did you  perform an exploratory data analysis of at least a single plot or table highlighting basic features of the data?
 
+```{r}
+ToothGrowth$dose <- as.factor(ToothGrowth$dose)
+ggplot(ToothGrowth,aes(x=factor(dose),y=len,fill=dose)) + 
+  geom_boxplot() +
+  theme_bw() + 
+  facet_wrap(~supp) +  
+  scale_x_discrete("Dose [mg]") + 
+  scale_y_continuous("Tooth length")
+```
 
 ## Assumptions 
 
