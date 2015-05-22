@@ -12,11 +12,24 @@ Load the ToothGrowth data and perform some basic exploratory data analyses
 library(datasets)
 data(ToothGrowth) 
 ```
-
+ 
 ## Basic summary of the data
+
+Here is a fragment of data that this study is built on:
 ```{r} 
 head(ToothGrowth)
 ```
+
+Here is some summary of this dataset:
+```{r} 
+summary(ToothGrowth)
+```
+
+In this studdy I will analyze the varriables *supp* and *dose* that have following values:
+```{r} 
+table(ToothGrowth$supp, ToothGrowth$dose)
+```
+ 
 
 ## Exploratory data analysis
 Some criteria that you will be evaluated on
