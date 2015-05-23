@@ -32,8 +32,8 @@ table(ToothGrowth$supp, ToothGrowth$dose)
 ```
  
 ## Exploratory data analysis
-Some criteria that you will be evaluated on
-Did you  perform an exploratory data analysis of at least a single plot or table highlighting basic features of the data?
+
+Looking at values of tooth length for different factors we can notice clear trends.
 
 ```{r}
 ToothGrowth$dose <- as.factor(ToothGrowth$dose)
@@ -47,13 +47,22 @@ ggplot(ToothGrowth,aes(x=factor(dose),y=len,fill=dose)) +
 
 ## Assumptions 
 
-Did the student describe the assumptions needed for their conclusions?
+Since we have that low number of cases in the sample I will use **T-distribution** for the hypothesis testing.
 
 ## Confidence intervals and Hypothesis testing
 
-Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (Only use the techniques from class, even if there's other approaches worth considering)
+Now, let's use confidence intervals to compare tooth growth by supp and dose. For this research I will prepare subsets of data by different doses:
 
-Did the student perform some relevant confidence intervals and/or tests?
+```{r}
+ToothDose1 <- subset(ToothGrowth, dose == 0.5)
+ToothDose2 <- subset(ToothGrowth, dose == 1.0)
+ToothDose3 <- subset(ToothGrowth, dose == 2.0)
+```
+
+Below is t-test for the variable **supp** within all doses:
+```{r}
+t.test(len ~ supp, data = ToothGrowth)
+```
 
 ## Conclusions 
 
