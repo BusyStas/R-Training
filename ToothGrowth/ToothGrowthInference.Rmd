@@ -2,7 +2,7 @@
 title: "Tooth growth statistical inference"
 author: "Stanislav Prikhodko"
 date: "Friday, May 22, 2015"
-output: pdf_document
+output: html_document
 ---
 
 ## Loading data
@@ -59,15 +59,26 @@ ToothDose2 <- subset(ToothGrowth, dose == 1.0)
 ToothDose3 <- subset(ToothGrowth, dose == 2.0)
 ```
 
-Below is t-test for the variable **supp** within all doses:
+Below is t-test for the variable **supp** within all doses and in each of subsets by different doses:
 ```{r}
 t.test(len ~ supp, data = ToothGrowth)
 ```
 
+```{r}
+t.test(len ~ supp, data = ToothDose1) ## dose = 0.5
+```
+
+```{r}
+t.test(len ~ supp, data = ToothDose2) ## dose = 1.0
+```
+
+```{r}
+t.test(len ~ supp, data = ToothDose3) ## dose = 2.0
+```
+
 ## Conclusions 
 
-State your conclusions and the assumptions needed for your conclusions. 
-Were the results of the tests and/or intervals interpreted in the context of the problem correctly?
+Looking at all groups together and the group of samples with dose=2.0 we see that p-value is greater than 0.05 (and the confidence interval contains 0) so we cannot rejecct the null hypothesis. 
 
- 
+However, in the group of samples where dose = 0.5 and 1.0 we are 95% confident that there is a difference between true mean of *tooth length* in groups OJ and VC. 
 
