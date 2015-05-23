@@ -33,12 +33,24 @@ summary(model)
 ```
 Since *p-value* is very small (**0.000285**) the variable *am* appears to be a good predictor for *mpg*.
 
-# Residual Plot
+# Residuals Plot
 
 ```{r}
 par(mfrow = c(2, 2))
 plot(model)
 ```
+
+# Quantify the MPG difference 
+
+In otder to quantify differenct of *MPG* between automatic and manual transmissions, let's calculate mean of two subsets
+```{r}
+automatic <- subset(mtcars, am==0)
+manual <- subset(mtcars, am==1)
+mpg_a <- mean(automatic$mpg)
+mpg_m <- mean(manual$mpg)
+difference <- mpg_m - mpg_a
+```
+The difference between *mpg* of manual and automatic cars is `r difference`.
 
 # Apendix I.
 
