@@ -5,18 +5,43 @@ date: "Friday, May 22, 2015"
 output: pdf_document
 ---
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+# Overview
+
+Looking at a data set of a collection of cars, they are interested in exploring the relationship between a set of variables and *miles per gallon* (MPG) (outcome). They are particularly interested in the following two questions:
+
+- "Is an automatic or manual transmission better for MPG"
+
+- "Quantify the MPG difference between automatic and manual transmissions"
+
+# Exploratory Data Analysis
 
 ```{r}
-summary(cars)
+data(mtcars)
+head(mtcars)
+
+boxplot(mtcars$mpg ~ mtcars$am, 
+        xlab="Transmission (0 = Automatic, 1 = Manual)", 
+        ylab="MPG",main="MPG over Transmission Type")
 ```
 
-You can also embed plots, for example:
+# Model Selection
+```{r}
+model <- lm(mpg ~ am, data = mtcars)
+summary(model)
+```
+Since *p-value* is very small (**0.000285**) the variable *am* appears to be a good predictor for *mpg*.
 
-```{r, echo=FALSE}
-plot(cars)
+# Residual Plot
+
+```{r}
+par(mfrow = c(2, 2))
+plot(model)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Apendix I.
+
+```{r}
+summary(mtcars)
+```
