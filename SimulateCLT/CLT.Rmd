@@ -2,10 +2,10 @@
 title: "Simulate CLT"
 author: "Stanislav Prikhodko"
 date: "Sunday, May 10, 2015"
-output: pdf_document
+output: html_document
 ---
 
-```{r, echo=FALSE,warning=FALSE}
+```{r, echo=FALSE,warning=FALSE,include=FALSE}
 library(ggplot2)
 library(grid)
 
@@ -66,9 +66,9 @@ In this project I will investigate the exponential distribution and compare it w
 
 ## Project  
 
-The mean of exponential distribution is 1/lambda and the standard deviation is also 1/lambda. I will use lambda = 0.2 for all of the simulations. In this study I will investigate the distribution of averages of 40 exponentials.
+The mean of exponential distribution is $\frac{1}{\lambda}$ and the standard deviation is also $\frac{1}{\lambda}$. I will use lambda = 0.2 for all of the simulations. In this study I will investigate the distribution of averages of 40 exponentials.
 
-### Theoretical Mean of the distribution
+## Theoretical Mean of the distribution
 
 Creating 1000 values from the exponential distribution
 ```{r}
@@ -79,7 +79,9 @@ theoretical_mean <- (1/lambda)
 ```
 
 The sample mean is **```r exp_mean```**. Theoretical mean is  **```r theoretical_mean```** (calculated as 1/lambda). 
- 
+
+## 
+
 Let's plot a histogram to show the sample mean and compare it to the theoretical mean of the distribution.
 ```{r}
 ggplot() + aes(exp)+ 
@@ -105,10 +107,6 @@ theoretical_var <- (1/lambda)^2 / sample_size
 
 ## Distribution is approximately normal
 
-```{r}
-#distribution of 1000 averages of 40 random uniforms
-```
-
 ```{r, warning=FALSE} 
  
 p1 <- 
@@ -116,7 +114,9 @@ p1 <-
   geom_histogram(aes(y=..density..), binwidth=0.1, colour="black", fill="white") + 
   geom_vline(aes(xintercept=mean(mns, na.rm=T)), color="red", linetype="dashed", size=1) +  
   geom_density(alpha=.2)
-
+print(p1)
+```
+```{r,include=FALSE}
 p2 <- 
   ggplot() + aes(mns)+ 
   geom_histogram( binwidth=0.1, colour="black", fill="white") + 
