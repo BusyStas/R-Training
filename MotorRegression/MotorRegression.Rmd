@@ -2,7 +2,7 @@
 title: "Regression analysis of MTCARS"
 author: "Stanislav Prikhodko"
 date: "Friday, May 22, 2015"
-output: pdf_document
+output: html_document
 ---
 
 
@@ -22,16 +22,17 @@ data(mtcars)
 head(mtcars)
 
 boxplot(mtcars$mpg ~ mtcars$am, 
+        col = "blue",
         xlab="Transmission (0 = Automatic, 1 = Manual)", 
-        ylab="MPG",main="MPG over Transmission Type")
+        ylab="MPG",main="MPG over Transmission")
 ```
 
-# Model Selection
+# Model Selection and Interpretation of coefficients
 ```{r}
 model <- lm(mpg ~ am, data = mtcars)
 summary(model)
 ```
-Since *p-value* is very small (**0.000285**) the variable *am* appears to be a good predictor for *mpg*.
+Since *p-value* is very small (**0.000285**) the variable *am* appears to be a good predictor for *mpg*. We are 95% confident that there is a difference of mean of mpg among cars with automatic and manual transmission. 
 
 # Residuals Plot
 
@@ -50,7 +51,12 @@ mpg_a <- mean(automatic$mpg)
 mpg_m <- mean(manual$mpg)
 difference <- mpg_m - mpg_a
 ```
-The difference between *mpg* of manual and automatic cars is `r difference`.
+The difference between *mpg* of manual and automatic cars in our sample is `r difference`. Let's perform t-test to estimate the difference in the whole population:
+```{r}
+t.test(mpg ~ am, data = mtcars)
+```
+
+Since *p-value* (0.001374) is less than 0.05, we reject the null hypothesis in favor of the alternative hypothesis. In ither words, we are 95 cconfident that thr true mean of mpg of automatic and manual cars (in this order) is between 3.209684 and 11.280194.
 
 # Apendix I.
 
