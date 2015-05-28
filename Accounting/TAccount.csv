@@ -1,0 +1,94 @@
+ACCOUNTS PAYABLE,Liability,Credits Increase,Debits Decrease
+ACCOUNTS RECEIVABLE,Asset,Debits Increase,Credits Decrease
+ACCUMULATED DEPRECIATION,Contra Asset,Credits Increase,Debits Decrease
+ADVERTISING EXPENSE,Expense,Debits Increase,Credits Decrease
+ALLOWANCE FOR UNCOLLECTIBLE ACCOUNTS,Contra Asset,Credits Increase,Debits Decrease
+AMORTIZATION EXPENSE,Expense,Debits Increase,Credits Decrease
+AVAILABLE FOR SALE SECURITIES,Asset,Debits Increase,Credits Decrease
+BONDS PAYABLE,Liability,Credits Increase,Debits Decrease
+BUILDING,Asset,Debits Increase,Credits Decrease
+CAPITAL STOCK,Equity,Credits Increase,Debits Decrease
+CASH,Asset,Debits Increase,Credits Decrease
+CASH OVER,Revenue,Credits Increase,Debits Decrease
+CASH SHORT,Expense,Debits Increase,Credits Decrease
+CHARITABLE CONTRIBUTIONS PAYABLE,Liability,Credits Increase,Debits Decrease
+COMMON STOCK,Equity,Credits Increase,Debits Decrease
+COST OF GOODS SOLD,Expense,Debits Increase,Credits Decrease
+CURRENCY EXCHANGE GAIN,Gain,Credits Increase,Debits Decrease
+CURRENCY EXCHANGE LOSS,Loss,Debits Increase,Credits Decrease
+DEPRECIATION EXPENSE,Expense,Debits Increase,Credits Decrease
+DISCOUNT ON BONDS PAYABLE,Liability,Credits Increase,Debits Decrease
+DISCOUNT ON NOTES PAYABLE,Contra Liability,Debits Increase,Credits Decrease
+DIVIDEND INCOME,Revenue,Credits Increase,Debits Decrease
+DIVIDENDS,Dividend,Debits Increase,Credits Decrease
+DIVIDENDS PAYABLE,Liability,Credits Increase,Debits Decrease
+DOMAIN NAME,Asset,Debits Increase,Credits Decrease
+EMPLOYEE BENEFITS EXPENSE,Expense,Debits Increase,Credits Decrease
+EQUIPMENT,Asset,Debits Increase,Credits Decrease
+FEDERAL INCOME TAX PAYABLE,Liability,Credits Increase,Debits Decrease
+FEDERAL UNEMPLOYMENT TAX PAYABLE,Liability,Credits Increase,Debits Decrease
+FREIGHT-IN,Part of Calculation of Net Purchases,Debits Increase,Credits Decrease
+FREIGHT-OUT,Expense,Debits Increase,Credits Decrease
+FUEL EXPENSE,Expense,Debits Increase,Credits Decrease
+GAIN,Gain,Credits Increase,Debits Decrease
+HEALTH/CHILD FLEX PAYABLE,Liability,Credits Increase,Debits Decrease
+INCOME SUMMARY,Not a Financial Statement Account,Credited for Total Revenues,Debited for Total Expenses
+INSURANCE EXPENSE,Expense,Debits Increase,Credits Decrease
+INSURANCE PAYABLE,Liability,Credits Increase,Debits Decrease
+INTEREST EXPENSE,Expense,Debits Increase,Credits Decrease
+INTEREST INCOME,Revenue,Credits Increase,Debits Decrease
+INTEREST PAYABLE,Liability,Credits Increase,Debits Decrease
+INTEREST RECEIVABLE,Asset,Debits Increase,Credits Decrease
+INVENTORY,Asset,Debits Increase,Credits Decrease
+INVESTMENT IN BONDS,Asset,Debits Increase,Credits Decrease
+INVESTMENT INCOME,Revenue,Credits Increase,Debits Decrease
+INVESTMENTS,Asset,Debits Increase,Credits Decrease
+LAND,Asset,Debits Increase,Credits Decrease
+LOAN PAYABLE,Liability,Credits Increase,Debits Decrease
+LOSS,Loss,Debits Increase,Credits Decrease
+MEDICARE/MEDICAID PAYABLE,Liability,Credits Increase,Debits Decrease
+MISCELLANEOUS EXPENSE,Expense,Debits Increase,Credits Decrease
+NOTES PAYABLE,Liability,Credits Increase,Debits Decrease
+NOTES RECEIVABLE,Asset,Debits Increase,Credits Decrease
+OBLIGATION UNDER CAPITAL LEASE,Liability,Credits Increase,Debits Decrease
+PAID-IN CAPITAL IN EXCESS OF PAR - COMMON,Equity,Credits Increase,Debits Decrease
+PAID-IN CAPITAL IN EXCESS OF PAR - PREFERRED,Equity,Credits Increase,Debits Decrease
+PATENT,Asset,Debits Increase,Credits Decrease
+PAYROLL TAX EXPENSE,Expense,Debits Increase,Credits Decrease
+PETTY CASH,Asset,Debits Increase,Credits Decrease
+POSTAGE EXPENSE,Expense,Debits Increase,Credits Decrease
+PREMIUM ON BONDS PAYABLE,Liability Adjunct Account,Credits Increase,Debits Decrease
+PREPAID INSURANCE,Asset,Debits Increase,Credits Decrease
+PREPAID RENT,Asset,Debits Increase,Credits Decrease
+PURCHASE DISCOUNTS,Reduces Calculation of Net Purchases,Credits Increase,Debits Decrease
+PURCHASE DISCOUNTS LOST,Expense,Debits Increase,Credits Decrease
+PURCHASES,Part of Calculation of Net Purchases,Debits Increase,Credits Decrease
+PURCHASE RETURNS,Reduces Calculation of Net Purchases,Credits Increase,Debits Decrease
+RENT EXPENSE,Expense,Debits Increase,Credits Decrease
+REPAIR EXPENSE,Expense,Debits Increase,Credits Decrease
+RETAINED EARNINGS,Equity,Credits Increase,Debits Decrease
+RETIREMENT CONTRIBUTION PAYABLE,Liability,Credits Increase,Debits Decrease
+REVENUE,Revenue,Credits Increase,Debits Decrease
+SALARIES EXPENSE,Expense,Debits Increase,Credits Decrease
+SALARIES PAYABLE,Liability,Credits Increase,Debits Decrease
+SALES,Revenue,Credits Increase,Debits Decrease
+SALES DISCOUNTS,Contra Revenue,Debits Increase,Credits Decrease
+SALES RETURNS,Contra Revenue,Debits Increase,Credits Decrease
+SERVICE CHARGE,Expense,Debits Increase,Credits Decrease
+SERVICE REVENUE,Revenue,Credits Increase,Debits Decrease
+SOCIAL SECURITY PAYABLE,Liability,Credits Increase,Debits Decrease
+STATE INCOME TAX PAYABLE,Liability,Credits Increase,Debits Decrease
+STATE UNEMPLOYMENT TAX PAYABLE,Liability,Credits Increase,Debits Decrease
+SUPPLIES,Asset,Debits Increase,Credits Decrease
+SUPPLIES EXPENSE,Expense,Debits Increase,Credits Decrease
+TRADING SECURITIES,Asset,Debits Increase,Credits Decrease
+TREASURY STOCK,Contra Equity,Debits Increase,Credits Decrease
+UNCOLLECTIBLE ACCOUNTS EXPENSE,Expense,Debits Increase,Credits Decrease
+UNEARNED REVENUE,Liability,Credits Increase,Debits Decrease
+UNREALIZED GAIN,Gain,Credits Increase,Debits Decrease
+UNREALIZED LOSS,Loss,Debits Increase,Credits Decrease
+UNREALIZED GAIN - OTHER COMPREHENSIVE INCOME,Increase in Equity via Other Comprehensive Income,Credits Increase,Debits Decrease
+UNREALIZED LOSS - OTHER COMPREHENSIVE INCOME,Decrease in Equity via Other Comprehensive Income,Debits Increase,Credits Decrease
+UTILITIES EXPENSE,Expense,Debits Increase,Credits Decrease
+WARRANTY EXPENSE,Expense,Debits Increase,Credits Decrease
+WARRANTY LIABILITY,Liability,Credits Increase,Debits Decrease
