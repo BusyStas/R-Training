@@ -38,13 +38,17 @@ x <- 0.32
 k <- 0:100
 v <- sum(3^(k+1) * x^k)
 f1 <- function(x){ return (    1/(1-3*x)     ) } 
-f2 <- function(x){ return (    3/(1-x)     ) } 
+f2 <- function(x){ return (    3/(1-x)       ) } 
 f3 <- function(x){ return (    3/(1-3*x)     ) } 
 c(v,f1(x),f2(x),f3(x))
 
 
 
-f<-function(x){ return (    exp(x*x)     ) } 
+f<-function(x){ return (    exp(x*x)         ) } 
 f<-function(x){ return (    log(1+x+x^2)     ) } 
 x <- 1:10
 cbind(f(x),x^4)
+
+
+
+
