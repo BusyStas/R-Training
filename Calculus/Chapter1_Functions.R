@@ -1,5 +1,10 @@
 
-
+x <- seq(-5,5,0.001)
+f <- function(x) {return (sqrt(log(x)))  }
+y <- f(x)
+plot(y~x, type="l")
+f(1.01)
+f(1.00)
 
 x <- 0.00000001
 fx <- log(1/(1-x))
@@ -23,15 +28,16 @@ x<-seq(0,.001,0.0001)
 f(x)
 1/0.1428571
 
-n <- 0:15
+n <- 0:115
 sum((sqrt(2)*pi)^n/factorial(n))
-1+pi*log(sqrt(2))
-1/(1-pi*sqrt(2))
-exp(sqrt(2)*pi)
-pi*exp(sqrt(2))
-atan(sqrt(2)*pi)
-sqrt(2)/(1-pi)
-exp(sqrt(2*pi))
+1+pi*log(sqrt(2))        # 2.088793
+1/(1-pi*sqrt(2))         # -0.2904543
+exp(sqrt(2)*pi)          # 85.0197
+exp(pi)*log(1+sqrt(2))   # 20.3956
+pi*exp(sqrt(2))          # 12.92216
+atan(sqrt(2)*pi)         # 1.349407
+sqrt(2)/(1-pi)           # -0.660356
+exp(sqrt(2*pi))          # 12.26351
 
 
 x <- 0.32
@@ -50,5 +56,12 @@ x <- 1:10
 cbind(f(x),x^4)
 
 
+f<-function(x){ return (    x^3-2*x^2+3*x-4         ) } 
+f(2)
+x <- 2
+dx <- 0.0001
+d1 <- (f(x+dx)-f(x))/dx # first derivative
+d1 <- function(x,dx) {  return ((f(x+dx)-f(x))/dx)  }
+(d1(x+dx,dx)-d1(x,dx))/dx # second derivative
 
 
